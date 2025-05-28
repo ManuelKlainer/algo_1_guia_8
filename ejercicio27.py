@@ -32,6 +32,7 @@ def split(texto: str, delimitador: str) -> list[str]:
 def calcular_promedio_por_estudiante(nombre_archivo_notas: str, nombre_archivo_promedios: str):
     archivo = open(nombre_archivo_notas, 'r')
     contenido: list[str] = archivo.readlines()
+    archivo.close()
     notas: list[tuple[str,float]] = []
     for linea in contenido:
         elementos: list[str] = split(linea,",")
@@ -43,9 +44,10 @@ def calcular_promedio_por_estudiante(nombre_archivo_notas: str, nombre_archivo_p
     salida = open(nombre_archivo_promedios, 'w')
     lineas: list[str] = []
     for alumno,promedio in promedios.items():
-        linea: str = alumno+","+str(promedio)
+        linea: str = alumno+","+str(promedio)+'\n'
         lineas.append(linea)
     salida.writelines(lineas)
+    salida.close()
         
 
 calcular_promedio_por_estudiante("file.csv","file2.csv")
